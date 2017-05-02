@@ -1,0 +1,14 @@
+{
+  "name": "task1-2",
+  "version": "1.0.0",
+  "description": "标题1 ===== 标题 ------ #标题1",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Peng Wang",
+  "license": "MIT",
+  "devDependencies": {
+    "gulp": "^3.9.1"
+  }
+}
