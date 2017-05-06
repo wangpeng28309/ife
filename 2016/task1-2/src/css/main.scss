@@ -1,4 +1,19 @@
 header {
     background-color: black;
-    padding: 20px;
+    height: 60px;
+    width: auto;
+    h1 {
+        float: left;
+        height: 50px;
+    }
+    ul {
+        float: right;
+        li {
+            display: inline;
+            margin: 12px;
+            a {
+                color: white;
+            }
+        }
+    }
 }
