@@ -28,29 +28,29 @@ gulp.task("css", function() {
         .pipe(livereload());
 });
 
-gulp.task("images", function() {
-    return gulp.src("src/images/*.{png,jpg,gif,ico}")
+gulp.task("img", function() {
+    return gulp.src("src/img/*.{png,jpg,gif,ico}")
         .pipe(cache(imagemin({
             progressive: true,
             svgoPlugins: [{ removeViewBox: false }, { cleanupIDs: false }],
             use: [pngquant()]
         })))
-        .pipe(gulp.dest("dist/images"))
+        .pipe(gulp.dest("dist/img"))
         .pipe(livereload());
 });
 
 gulp.task("clean", function() {
-    return gulp.src(["dist/", "dist/styles", "dist/images"], { read: false })
+    return gulp.src(["dist/", "dist/css", "dist/img"], { read: false })
         .pipe(clean());
 });
 
 gulp.task("default", ["clean"], function() {
-    gulp.start("html", "styles", "images");
+    gulp.start("html", "css", "img");
 });
 
 gulp.task("watch", function() {
     livereload.listen();
     gulp.watch("src/*.html", ["html"]);
     gulp.watch("src/css/*.scss", ["css"]);
-    gulp.watch("src/images/*.{png,jpg,gif,ico}", ["images"]);
+    gulp.watch("src/img/*.{png,jpg,gif,ico}", ["img"]);
 });
