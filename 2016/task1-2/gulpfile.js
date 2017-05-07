@@ -6,9 +6,7 @@ var gulp = require("gulp"),
     rename = require("gulp-rename"),
     htmlmin = require("gulp-htmlmin"),
     imagemin = require("gulp-imagemin"),
-    pngquant = require('imagemin-pngquant'),
     cache = require("gulp-cache"),
-    clean = require("gulp-clean"),
     livereload = require("gulp-livereload");
 
 gulp.task("html", function() {
@@ -33,7 +31,6 @@ gulp.task("img", function() {
         .pipe(cache(imagemin({
             progressive: true,
             svgoPlugins: [{ removeViewBox: false }, { cleanupIDs: false }],
-            use: [pngquant()]
         })))
         .pipe(gulp.dest("dist/img"))
         .pipe(livereload());
