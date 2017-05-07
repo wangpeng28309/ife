@@ -41,5 +41,30 @@ header {
     background: #dedede;
     article {
         @include box-style;
+        h2 {
+            color: #6b6267;
+        }
+        h3 {
+            color: #866463;
+        }
+        p {
+            @include font-style(14px,1.5);
+            text-indent: 2em;
+        }
+        img {
+            display: block;
+            width: auto;
+            height: auto;
+        }
+        ul {
+            margin: 20px;            
+        }
+        ol {
+            margin: 20px;
+            list-style: decimal outside;
+        }
+        li {
+            @include font-style(14px,1.5);
+        }
     }
 }
