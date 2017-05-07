@@ -17,3 +17,29 @@ header {
         }
     }
 }
+@mixin box-style{
+    width: 100%;
+    padding: 40px 20px;
+    margin: 20px 0;
+    box-shadow: 2px 2px 5px #848484;
+    background: #fff;
+}
+@mixin font-style($size, $line-height) {
+    font: #{$size}/#{$line-height} Tahoma, Helvetica, Arial, "\5b8b\4f53", sans-serif;
+}
+@mixin form-style($item, $pos, $gap, $n) {
+    @for $i from 1 to $n + 1 {
+        #{$item}:nth-of-type(#{$i}) {
+            left: $pos;
+        }
+        $pos: $pos + $gap;
+    }
+}
+.container {
+    width: 100%;
+    padding: 20px 20px;
+    background: #dedede;
+    article {
+        @include box-style;
+    }
+}
