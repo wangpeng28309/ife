@@ -18,7 +18,7 @@ header {
     }
 }
 @mixin box-style{
-    width: 1160px;
+    width: 100%;
     padding: 40px 20px;
     margin: 20px auto;
     box-shadow: 2px 2px 5px #848484;
@@ -65,6 +65,9 @@ header {
         }
         li {
             @include font-style(14px,1.5);
+        }
+        table {
+
         }
     }
 }
