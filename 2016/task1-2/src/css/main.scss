@@ -88,9 +88,11 @@ header {
                 color: black;
                 background: white;
             }
+            tfoot td {
             border: solid 1px #cecece;
             font-weight: bold;
             background: #cecece;
+            }
         }
     }
 }
