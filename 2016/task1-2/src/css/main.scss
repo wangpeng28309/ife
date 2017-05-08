@@ -106,6 +106,7 @@ header {
         margin: 15px 60px;
         figcaption {
             width: 100%;
+            text-align: center;
             @include font-style(12px,1);
             margin-bottom: 10px;
         }
