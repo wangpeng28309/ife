@@ -116,6 +116,12 @@ header {
         }
     }
 }
+.sidebar {
+    @include box-style;
+    form {
+        @include font-style(12px,1.5);
+    }
+}
 footer {
     width: 100%;
     height: 60px;
