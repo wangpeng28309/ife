@@ -99,14 +99,15 @@ header {
 .gallery {
     @include box-style;
     figure {
-        width: 80px;
-        height: 60px;
+        width: 180px;
+        height: 120px;
         border: solid 1px #cecece;
         padding: 10px;
         margin: 15px 60px;
         figcaption {
             width: 100%;
             @include font-style(12px,1);
+            margin-bottom: 10px;
         }
         img {
             width: 100%;
