@@ -120,6 +120,12 @@ header {
     @include box-style;
     form {
         @include font-style(12px,1.5);
+        label.describtion textarea {
+            @include font-style(25px,3);
+        }
+        input.submit {
+            @include font-style(25px,3);
+        }
     }
 }
 footer {
