@@ -21,7 +21,7 @@ header {
     }
 }
 @mixin box-style{
-    width: 1160px;
+    width: 90%;
     padding: 40px 20px;
     margin: 20px auto;
     box-shadow: 2px 2px 5px #848484;
@@ -31,7 +31,6 @@ header {
     font: #{$size}/#{$line-height} Tahoma, Helvetica, Arial, "\5b8b\4f53", sans-serif;
 }
 .container {
-    overflow: hidden;
     width: 100%;
     padding: 20px 0;
     background: #dedede;
@@ -131,6 +130,7 @@ header {
         select.city-content,
         div.hobby-content,
         textarea {
+            max-width: 500px;
             margin-bottom: 10px;
             position: relative;
             left: 400px;
