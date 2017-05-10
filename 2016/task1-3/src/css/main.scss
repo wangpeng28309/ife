@@ -1,14 +1,13 @@
 @mixin box-style {
     width: 100%;
-    height: 600px;
     padding: 20px;
-    border: solid 1px;
-    border-color: #999;
+    min-height: 440px;
+    border: solid 1px #999;
     background: #eee;
 }
 @mixin logo-left-style {
 	width: 200px;
-	height: 100px;
+	height: 80px;
 	border: solid 1px;
 	background: white;
 	padding: 20px;
@@ -21,19 +20,17 @@
 }
 @mixin logo-right-style {
 	width: 120px;
-	height: 430px;
 	border: solid 1px;
 	background: white;
 }
 @mixin img-right {
 	width: 80px;
 	height: 80px;
+	margin: 20px 20px 0px 20px;
 	border: solid 1px;
 	background: #cecece;
-	margin: 20px 20px 0 20px;
 }
 @mixin center {
-	height: 350px;
 	padding: 20px;
 	margin-top: 0;
 	border: solid 1px;
@@ -59,6 +56,9 @@
 		float: right;
 		img.img-right {
 			@include img-right;
+			&:last-of-type {
+				margin-bottom: 20px;
+			}
 		}
 	}
 	p.center {
