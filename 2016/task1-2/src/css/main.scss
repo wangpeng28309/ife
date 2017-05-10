@@ -4,13 +4,16 @@ header {
     width: 100%;
     h1 {
         float: left;
-        height: 50px;
+        height: 20px;
+        color: white;
+        margin: 20px;
     }
     ul {
         float: right;
+        padding: 20px;
         li {
             display: inline;
-            margin: 12px;
+            margin-left: 20px; 
             a {
                 color: white;
             }
@@ -27,15 +30,8 @@ header {
 @mixin font-style($size, $line-height) {
     font: #{$size}/#{$line-height} Tahoma, Helvetica, Arial, "\5b8b\4f53", sans-serif;
 }
-@mixin form-style($item, $pos, $gap, $n) {
-    @for $i from 1 to $n + 1 {
-        #{$item}:nth-of-type(#{$i}) {
-            left: $pos;
-        }
-        $pos: $pos + $gap;
-    }
-}
 .container {
+    overflow: hidden;
     width: 100%;
     padding: 20px 0;
     background: #dedede;
