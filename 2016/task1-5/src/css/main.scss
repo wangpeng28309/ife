@@ -21,9 +21,15 @@ header {
     }
 }
 @mixin box-style{
-    width: 90%;
     padding: 40px 20px;
-    margin: 20px auto;
+    margin: 20px 380px 20px 20px;
+    box-shadow: 2px 2px 5px #848484;
+    background: #fff;
+}
+@mixin sidebar-box-style{
+    width: 300px;
+    padding: 40px 20px;
+    margin: 0 20px;
     box-shadow: 2px 2px 5px #848484;
     background: #fff;
 }
@@ -32,7 +38,6 @@ header {
 }
 .container {
     width: 100%;
-    padding: 20px 0;
     background: #dedede;
     article {
         @include box-style;
@@ -93,12 +98,14 @@ header {
 }
 .gallery {
     @include box-style;
+    overflow: auto;
     figure {
         width: 180px;
         height: 150px;
         border: solid 1px #cecece;
         padding: 10px;
-        margin: 15px 60px;
+        margin: 15px 0px;
+        float: left;
         figcaption {
             width: 100%;
             text-align: center;
@@ -107,12 +114,15 @@ header {
         }
         img {
             width: 100%;
-            display: block;
+            display: inline-block;
         }
     }
 }
 .sidebar {
-    @include box-style;
+    @include sidebar-box-style;
+    position: absolute;
+    top: 80px;
+    right: 0;
     form {
         @include font-style(12px,1.5);
         margin: 20px 0;
@@ -130,10 +140,10 @@ header {
         select.city-content,
         div.hobby-content,
         textarea {
-            max-width: 500px;
+            width: 150px;
             margin-bottom: 10px;
             position: relative;
-            left: 400px;
+            left: 130px;
         }
         label.email,
         label.password,
@@ -147,7 +157,7 @@ header {
             display: block;
             margin-bottom: 10px;
             position: absolute;
-            left: 300px;
+            left: 50px;
         }
         #email-text,
         #password-text {
