@@ -1,0 +1,84 @@
+header {
+	width: 1280px;
+	height: 57px;
+	background: white;
+	position: fixed;
+	.web-logo{
+		margin-left: 70px;
+        img {
+	    	width: 31px;
+	    	height: 31px;
+	    	display: inline-block;
+	    	position: absolute;
+            top: 50%;
+            margin-top: -15.5px;
+	    }
+	    p {
+	    	display: inline-block;
+	    	font-size: 21px;
+	    	margin-left: 40px;
+	    	position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+	    }
+	}
+	ul {
+		position: absolute;
+        top: 50%;
+        left: 60%;
+        transform: translateY(-50%);
+		li {
+			display: inline;
+			text-align: center;
+			margin-left: 30px;
+			font-size: 14px;
+			a.a-gray {
+			    color: #8e9197;
+			}
+			a.a-red {
+				color: #e74f4d;
+			}
+		}
+	}  
+}
+.new-life {
+	width: 1280px;
+	height: 851px;
+	overflow: auto;
+	p.en-new-life {
+		font-size: 60px;
+		position: absolute;
+		top: 240px;
+		left: 120px;
+		color: #ffffff;
+	}
+	p.cn-new-age {
+		font-size: 20px;
+		position: absolute;
+		top: 330px;
+		left: 130px;
+		color: white;
+		line-height: 25px;
+	}
+	.begain-test {
+		width: 331px;
+		height: 65px;
+		background-color: #e74f4d;
+		position: absolute;
+		top: 430px;
+		left: 130px;
+		a {
+			position: absolute;
+			left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 20px;
+            color: white;
+		}
+	}
+}
+.can-do {
+	width: 1280px;
+	height: 200px;
+	background-color: #cecece;
+}
