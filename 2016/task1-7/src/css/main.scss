@@ -82,11 +82,12 @@ header {
 	width: 1280px;
 	height: 200px;
 	background-color: white;
+	overflow: auto;
 	#point,
 	#flag,
 	#flower,
 	#pane {
-		height: 220px;
+		height: auto;
 		width: 320px;
 		display: inline-block;
 	}
@@ -97,5 +98,27 @@ header {
 	p {
 		text-align: center;
 		font-size: 14px;
+		color: #aaaaaa;
+		line-height: 20px;
 	}
+}
+.dont-know {
+	width: 1280px;
+	height: 361px;
+	background: #edecec;
+	overflow: auto;
+	img {
+		display: block;
+		margin: 50px auto;
+	}
+	p {
+		color: #a1a1a1;
+		font-size: 53.59px;
+		text-align: center;
+	}
+}
+.search {
+	width: 1280px;
+	height: 341px;
+	background: url(../img/search.png);
 }
