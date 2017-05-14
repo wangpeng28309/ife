@@ -3,6 +3,7 @@ header {
 	height: 57px;
 	background: white;
 	position: fixed;
+	z-index: 1;
 	.web-logo{
 		margin-left: 70px;
         img {
@@ -80,5 +81,21 @@ header {
 .can-do {
 	width: 1280px;
 	height: 200px;
-	background-color: #cecece;
+	background-color: white;
+	#point,
+	#flag,
+	#flower,
+	#pane {
+		height: 220px;
+		width: 320px;
+		display: inline-block;
+	}
+	img {
+		margin: 40px auto;
+		display: block;
+	}
+	p {
+		text-align: center;
+		font-size: 14px;
+	}
 }
