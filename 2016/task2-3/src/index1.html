@@ -1,0 +1,89 @@
+<!DOCTYPE>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>IFE JavaScript Task 01</title>
+  </head>
+<body>
+
+  <ul id="source">
+    <li>北京空气质量：<b>90</b></li>
+    <li>上海空气质量：<b>70</b></li>
+    <li>天津空气质量：<b>80</b></li>
+    <li>广州空气质量：<b>50</b></li>
+    <li>深圳空气质量：<b>40</b></li>
+    <li>福州空气质量：<b>32</b></li>
+    <li>成都空气质量：<b>90</b></li>
+  </ul>
+
+  <ul id="resort">
+    <!-- 
+    <li>第一名：北京空气质量：<b>90</b></li>
+    <li>第二名：北京空气质量：<b>90</b></li>
+    <li>第三名：北京空气质量：<b>90</b></li>
+     -->
+
+  </ul>
+
+  <button id="sort-btn">排序</button>
+
+<script type="text/javascript"> 
+var EventUtil = {
+
+    addHandler: function(element, type, handler){
+        if (element.addEventListener){
+            element.addEventListener(type, handler, false);
+        } else if (element.attachEvent){
+            element.attachEvent("on" + type, handler);
+        } else {
+            element["on" + type] = handler;
+        }
+    }
+};
+function getData() {
+    var ulChild = [];
+    var ul = document.getElementById("source");
+    for (var i = 0; i < ul.childNodes.length; i++) {
+      if (ul.childNodes[i].nodeType == 1) {
+          var oneAqi = [];
+          var count = oneAqi.push(ul.childNodes[i].childNodes[0].nodeValue);
+          var count = oneAqi.push(ul.childNodes[i].childNodes[1].firstChild.nodeValue);
+          ulChild.push(oneAqi);
+      }
+    }
+    return ulChild;
+}
+
+function sort(ulChild) {
+    function compare(a, b) {
+        return a[1]-b[1];
+    }
+    ulChild.sort(compare);
+    return ulChild
+}
+function render(ulChild) {
+    var ul = document.createElement("ul");
+    for (var i = 0; i < ulChild.length; i++) {
+        var li = document.createElement("li");
+        li.innerHTML = ulChild[i][0]+ulChild[i][1];
+        ul.appendChild(li);
+    }
+    document.body.appendChild(ul);
+}
+
+function main() {
+    var ulChild = getData();
+    ulChild = sort(ulChild);
+    render(ulChild);
+}
+
+function init () {
+    var button = document.getElementById("sort-btn");
+    EventUtil.addHandler(button, "click", function () {
+    main();
+})
+}
+init();
+</script>
+</body>
+</html>
