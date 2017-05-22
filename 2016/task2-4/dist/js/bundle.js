@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 3);
+/******/ 	return __webpack_require__(__webpack_require__.s = 4);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -185,14 +185,14 @@ module.exports = EventUtil;
 /***/ (function(module, exports) {
 
 window.addAqiData = function() {
-    var AqiData = [];
     var AqiDataChild = [];
     var aqiCityInput = document.getElementById('aqi-city-input');
     var aqiValueInput = document.getElementById('aqi-value-input');
     var count = AqiDataChild.push(aqiCityInput.value);
     var count = AqiDataChild.push(aqiValueInput.value);
     AqiData.push(AqiDataChild);
-    alert(AqiData);
+    console.log(AqiData);
+    return AqiData;
 }
 module.exports = addAqiData;
 
@@ -201,22 +201,88 @@ module.exports = addAqiData;
 /* 2 */
 /***/ (function(module, exports) {
 
-window.init = function(argument) {
-    var addBtn = document.getElementById('add-btn');
-    EventUtil.addHandler(addBtn, "click", function addAqiData() {
+window.init = function() {
+    var addBtn = document.getElementById("add-btn");
+    EventUtil.addHandler(addBtn, "click", function() {
+    	addAqiData();
+    	render();
     });
+
+    var aqiValueInput = document.getElementById("aqi-value-input");
+    EventUtil.addHandler(aqiValueInput, "keypress", function(event) {
+        event = EventUtil.getEvent(event);
+        var charCode = EventUtil.getCharCode(event);
+        if (!/\d/.test(String.fromCharCode(charCode))) {
+        	EventUtil.preventDefault(event);
+        	console.log('请输入整数');
+        }
+    });
+    var aqiCityInput = document.getElementById("aqi-city-input");
+    EventUtil.addHandler(aqiCityInput, "keypress", function(event) {
+    	event = EventUtil.getEvent(event);
+        var charCode = EventUtil.getCharCode(event);
+        if (/\d/.test(String.fromCharCode(charCode))) {
+        	EventUtil.preventDefault(event);
+        	console.log('请输入中文或英文');
+        }
+    });
+    	EventUtil.addHandler(window, "click", function(event) {
+    		event = EventUtil.getEvent(event);
+    		var target = EventUtil.getTarget(event);
+    		console.log(target);
+    		console.log(target.getAttribute("id"));
+    		if (target.getAttribute("id") === 'delete') {
+    			var rowNumber = target.parentNode.parentNode.rowIndex;
+    			console.log(rowNumber);
+    			document.getElementsByTagName("table")[0].deleteRow(rowNumber); 
+    		}
+    	});
+    
 }
 module.exports = init;
 
 
 /***/ }),
 /* 3 */
+/***/ (function(module, exports) {
+
+window.render = function(AqiData) {
+	var table = document.createElement("table");
+	var tbody = document.createElement("tbody");
+    var AqiData = addAqiData();
+            console.log(AqiData);
+
+        var tr = document.createElement("tr");
+        var tdCity = document.createElement("td");
+        var tdValue = document.createElement("td");
+        var tdButton =document.createElement("td");
+        var button = document.createElement("button");
+        button.setAttribute("id", "delete");
+        tdCity.innerHTML = AqiData[AqiData.length-1][0];
+        tdValue.innerHTML = AqiData[AqiData.length-1][1];
+        button.innerHTML = '删除';
+        tr.appendChild(tdCity);
+        tr.appendChild(tdValue);
+        tr.appendChild(tdButton);
+        tdButton.appendChild(button);
+        tbody.appendChild(tr);
+    
+    table.appendChild(tbody);
+    document.body.appendChild(table);
+}
+module.exports = render;
+
+/***/ }),
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var EventUtil = __webpack_require__(0);
 var init = __webpack_require__(2);
 var addAqiData = __webpack_require__(1);
+var render = __webpack_require__(3);
+window.AqiData = [];
 init();
+
 
 /***/ })
 /******/ ]);
