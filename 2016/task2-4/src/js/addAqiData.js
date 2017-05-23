@@ -5,7 +5,6 @@ window.addAqiData = function() {
     var count = AqiDataChild.push(aqiCityInput.value);
     var count = AqiDataChild.push(aqiValueInput.value);
     AqiData.push(AqiDataChild);
-    console.log(AqiData);
     return AqiData;
 }
 module.exports = addAqiData;

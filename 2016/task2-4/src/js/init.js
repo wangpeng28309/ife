@@ -1,7 +1,6 @@
 window.init = function() {
     var addBtn = document.getElementById("add-btn");
     EventUtil.addHandler(addBtn, "click", function() {
-    	addAqiData();
     	render();
     });
 

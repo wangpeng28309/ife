@@ -191,7 +191,6 @@ window.addAqiData = function() {
     var count = AqiDataChild.push(aqiCityInput.value);
     var count = AqiDataChild.push(aqiValueInput.value);
     AqiData.push(AqiDataChild);
-    console.log(AqiData);
     return AqiData;
 }
 module.exports = addAqiData;
@@ -204,8 +203,6 @@ module.exports = addAqiData;
 window.deleteRow = function(event) {
 	event = EventUtil.getEvent(event);
         var target = EventUtil.getTarget(event);
-        console.log(target);
-        console.log(target.getAttribute("id"));
         if (target.getAttribute("name") === 'delete') {
           target.parentNode.parentNode.parentNode.deleteRow(0); 
       }
@@ -219,7 +216,6 @@ module.exports = deleteRow;
 window.init = function() {
     var addBtn = document.getElementById("add-btn");
     EventUtil.addHandler(addBtn, "click", function() {
-    	addAqiData();
     	render();
     });
 
