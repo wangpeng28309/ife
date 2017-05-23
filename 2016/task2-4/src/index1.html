@@ -15,27 +15,22 @@
   <script>
   var render = function(AqiData) {
     var table = document.createElement("table");
-  var tbody = document.createElement("tbody");
+    table.setAttribute("id", "table");
         var AqiData = addAqiData();
           console.log(AqiData);
 
-        var tr = document.createElement("tr");
-        var tdCity = document.createElement("td");
-        var tdValue = document.createElement("td");
-        var tdButton =document.createElement("td");
+        var tr = table.insertRow(0);
+        var td1 = tr.insertCell(0);
+        var td2 = tr .insertCell(1);
+        var td3 = tr.insertCell(2);
         var button = document.createElement("button");
-        button.setAttribute("id", "delete");
-        tdCity.innerHTML = AqiData[AqiData.length-1][0];
-        console.log(tdCity);
-        tdValue.innerHTML = AqiData[AqiData.length-1][1];
+        button.setAttribute("name", "delete");
+        td1.innerHTML = AqiData[AqiData.length-1][0];
+        td2.innerHTML = AqiData[AqiData.length-1][1];
         button.innerHTML = '删除';
-        tr.appendChild(tdCity);
-        tr.appendChild(tdValue);
-        tr.appendChild(tdButton);
-        tdButton.appendChild(button);
-        tbody.appendChild(tr);
+
+        td3.appendChild(button);
     
-    table.appendChild(tbody);
     document.body.appendChild(table);
 }
     var EventUtil = {
@@ -80,6 +75,16 @@
     console.log(AqiData);
     return AqiData;
 }  
+var deleteEvent = function() {
+    event = EventUtil.getEvent(event);
+        var target = EventUtil.getTarget(event);
+        console.log(target);
+        console.log(target.getAttribute("id"));
+        if (target.getAttribute("name") === 'delete') {
+          target.parentNode.parentNode.parentNode.deleteRow(0); 
+      }
+    
+}
 var init = function() {
     var addBtn = document.getElementById('add-btn');
     EventUtil.addHandler(addBtn, "click", function() {
@@ -104,17 +109,8 @@ var init = function() {
         }
     });
     EventUtil.addHandler(window, "click", function(event) {
-        event = EventUtil.getEvent(event);
-        var target = EventUtil.getTarget(event);
-        console.log(target);
-        console.log(target.getAttribute("id"));
-        if (target.getAttribute("id") === 'delete') {
-          var rowNumber = target.parentNode.parentNode.rowIndex;
-          console.log(rowNumber);
-          document.getElementsByTagName("table")[0].deleteRow(rowNumber); 
-        }
+      deleteEvent();
       });
-    
 }
     var AqiData = [];
 

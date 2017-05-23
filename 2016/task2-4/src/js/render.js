@@ -9,7 +9,7 @@ window.render = function(AqiData) {
         var tdValue = document.createElement("td");
         var tdButton =document.createElement("td");
         var button = document.createElement("button");
-        button.setAttribute("id", "delete");
+        button.setAttribute("name", "delete");
         tdCity.innerHTML = AqiData[AqiData.length-1][0];
         tdValue.innerHTML = AqiData[AqiData.length-1][1];
         button.innerHTML = '删除';

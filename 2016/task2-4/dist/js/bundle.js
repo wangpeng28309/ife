@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 4);
+/******/ 	return __webpack_require__(__webpack_require__.s = 5);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -201,6 +201,21 @@ module.exports = addAqiData;
 /* 2 */
 /***/ (function(module, exports) {
 
+window.deleteRow = function(event) {
+	event = EventUtil.getEvent(event);
+        var target = EventUtil.getTarget(event);
+        console.log(target);
+        console.log(target.getAttribute("id"));
+        if (target.getAttribute("name") === 'delete') {
+          target.parentNode.parentNode.parentNode.deleteRow(0); 
+      }
+}
+module.exports = deleteRow;
+
+/***/ }),
+/* 3 */
+/***/ (function(module, exports) {
+
 window.init = function() {
     var addBtn = document.getElementById("add-btn");
     EventUtil.addHandler(addBtn, "click", function() {
@@ -227,15 +242,7 @@ window.init = function() {
         }
     });
     	EventUtil.addHandler(window, "click", function(event) {
-    		event = EventUtil.getEvent(event);
-    		var target = EventUtil.getTarget(event);
-    		console.log(target);
-    		console.log(target.getAttribute("id"));
-    		if (target.getAttribute("id") === 'delete') {
-    			var rowNumber = target.parentNode.parentNode.rowIndex;
-    			console.log(rowNumber);
-    			document.getElementsByTagName("table")[0].deleteRow(rowNumber); 
-    		}
+    	deleteRow();
     	});
     
 }
@@ -243,7 +250,7 @@ module.exports = init;
 
 
 /***/ }),
-/* 3 */
+/* 4 */
 /***/ (function(module, exports) {
 
 window.render = function(AqiData) {
@@ -257,7 +264,7 @@ window.render = function(AqiData) {
         var tdValue = document.createElement("td");
         var tdButton =document.createElement("td");
         var button = document.createElement("button");
-        button.setAttribute("id", "delete");
+        button.setAttribute("name", "delete");
         tdCity.innerHTML = AqiData[AqiData.length-1][0];
         tdValue.innerHTML = AqiData[AqiData.length-1][1];
         button.innerHTML = '删除';
@@ -273,13 +280,14 @@ window.render = function(AqiData) {
 module.exports = render;
 
 /***/ }),
-/* 4 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var EventUtil = __webpack_require__(0);
-var init = __webpack_require__(2);
+var init = __webpack_require__(3);
 var addAqiData = __webpack_require__(1);
-var render = __webpack_require__(3);
+var render = __webpack_require__(4);
+var deleteRow = __webpack_require__(2);
 window.AqiData = [];
 init();
 

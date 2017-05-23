@@ -24,15 +24,7 @@ window.init = function() {
         }
     });
     	EventUtil.addHandler(window, "click", function(event) {
-    		event = EventUtil.getEvent(event);
-    		var target = EventUtil.getTarget(event);
-    		console.log(target);
-    		console.log(target.getAttribute("id"));
-    		if (target.getAttribute("id") === 'delete') {
-    			var rowNumber = target.parentNode.parentNode.rowIndex;
-    			console.log(rowNumber);
-    			document.getElementsByTagName("table")[0].deleteRow(rowNumber); 
-    		}
+    	deleteRow();
     	});
     
 }
