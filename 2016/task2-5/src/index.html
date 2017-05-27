@@ -3,31 +3,264 @@
   <head>
     <meta charset="utf-8">
     <title>IFE JavaScript Task 01</title>
-        <style type="text/css">
-        #aqi-chart-wrap div {
-            width: 10px;
-            background: green;
-            display: inline-block;
-        }
-    </style>
+<link rel="stylesheet" type="text/css" href="./css/main.css">
   </head>
 <body>
   <fieldset id="form-gra-time">
     <legend>请选择日期粒度：</legend>
-    <label>日<input name="gra-time" value="day" type="radio" checked="checked"></label>
-    <label>周<input name="gra-time" value="week" type="radio"></label>
-    <label>月<input name="gra-time" value="month" type="radio"></label>
+    <label>日<input name="gra-time" value="day" type="radio" id="day"></label>
+    <label>周<input name="gra-time" value="week" type="radio" id="week"></label>
+    <label>月<input name="gra-time" value="month" type="radio" id="month"></label>
   </fieldset>
 
   <fieldset>
     <legend>请选择查看的城市：</legend>
     <select id="city-select">
-      <option>北京</option>
+      <option value="北京">北京</option>
+      <option value="上海">上海</option>
+      <option value="深圳">深圳</option>
     </select>
   </fieldset>
 
   <div id="aqi-chart-wrap">
   </div>
-  <script src="./js/aqiSourceData.js"></script>
+  <script>
+  var EventUtil = {
+
+    addHandler: function(element, type, handler){
+        if (element.addEventListener){
+            element.addEventListener(type, handler, false);
+        } else if (element.attachEvent){
+            element.attachEvent("on" + type, handler);
+        } else {
+            element["on" + type] = handler;
+        }
+    },
+    
+    getButton: function(event){
+        if (document.implementation.hasFeature("MouseEvents", "2.0")){
+            return event.button;
+        } else {
+            switch(event.button){
+                case 0:
+                case 1:
+                case 3:
+                case 5:
+                case 7:
+                    return 0;
+                case 2:
+                case 6:
+                    return 2;
+                case 4: return 1;
+            }
+        }
+    },
+    
+    getCharCode: function(event){
+        if (typeof event.charCode == "number"){
+            return event.charCode;
+        } else {
+            return event.keyCode;
+        }
+    },
+    
+    getClipboardText: function(event){
+        var clipboardData =  (event.clipboardData || window.clipboardData);
+        return clipboardData.getData("text");
+    },
+    
+    getEvent: function(event){
+        return event ? event : window.event;
+    },
+    
+    getRelatedTarget: function(event){
+        if (event.relatedTarget){
+            return event.relatedTarget;
+        } else if (event.toElement){
+            return event.toElement;
+        } else if (event.fromElement){
+            return event.fromElement;
+        } else {
+            return null;
+        }
+    
+    },
+    
+    getTarget: function(event){
+        return event.target || event.srcElement;
+    },
+    
+    getWheelDelta: function(event){
+        if (event.wheelDelta){
+            return (client.engine.opera && client.engine.opera < 9.5 ? -event.wheelDelta : event.wheelDelta);
+        } else {
+            return -event.detail * 40;
+        }
+    },
+    
+    preventDefault: function(event){
+        if (event.preventDefault){
+            event.preventDefault();
+        } else {
+            event.returnValue = false;
+        }
+    },
+
+    removeHandler: function(element, type, handler){
+        if (element.removeEventListener){
+            element.removeEventListener(type, handler, false);
+        } else if (element.detachEvent){
+            element.detachEvent("on" + type, handler);
+        } else {
+            element["on" + type] = null;
+        }
+    },
+    
+    setClipboardText: function(event, value){
+        if (event.clipboardData){
+            event.clipboardData.setData("text/plain", value);
+        } else if (window.clipboardData){
+            window.clipboardData.setData("text", value);
+        }
+    },
+    
+    stopPropagation: function(event){
+        if (event.stopPropagation){
+            event.stopPropagation();
+        } else {
+            event.cancelBubble = true;
+        }
+    }
+
+};
+    // 以下两个函数用于随机模拟生成测试数据
+function getDateStr(dat) {
+  var y = dat.getFullYear();
+  var m = dat.getMonth() + 1;
+  m = m < 10 ? '0' + m : m;
+  var d = dat.getDate();
+  d = d < 10 ? '0' + d : d;
+  return y + '-' + m + '-' + d;
+}
+function randomBuildData(seed) {
+  var returnData = {};
+  var dat = new Date("2016-01-01");
+  var datStr = ''
+  for (var i = 1; i < 92; i++) {
+    datStr = getDateStr(dat);
+    returnData[datStr] = Math.ceil(Math.random() * seed);
+    dat.setDate(dat.getDate() + 1);
+  }
+  return returnData;
+}
+
+var aqiSourceData = {
+  "北京": randomBuildData(500),
+  "上海": randomBuildData(300),
+  "深圳": randomBuildData(100),
+};
+console.log(aqiSourceData);
+
+function getLevel(aqi) {
+            var level;
+            switch (true) {
+                case aqi <= 50:
+                level = 1;
+                break;
+                case aqi > 50 && aqi <= 100:
+                level = 2;
+                break;
+                case aqi > 100 && aqi <= 150:
+                level = 3;
+                break;
+                case aqi > 150 && aqi <= 200:
+                level = 4;
+                break;
+                case aqi > 200 && aqi <= 300:
+                level = 5;
+                break;
+                case aqi > 300:
+                level = 6;
+                break;
+            }
+            return level;
+}
+    var aqiChart = document.getElementById("aqi-chart-wrap");
+
+function addEvent(argument) {
+  EventUtil.addHandler(window, "load", function() {
+    var formGraTime = document.getElementById("form-gra-time");
+    var citySelect = document.getElementById("city-select");
+    var day = document.getElementById("day");
+    var week = document.getElementById("week");
+    var month = document.getElementById("month");
+    var graArray = [day, week , month];
+    var cityOptions = citySelect.options;
+
+EventUtil.addHandler(citySelect, "change", function (event) {
+      event = EventUtil.getEvent(event);
+    var target = EventUtil.getTarget(event);
+graArray.forEach(function(element){  
+        if (element.checked) {
+          var graTimeValue = element.value;
+          var citySelectOneValue = cityOptions[citySelect.selectedIndex].value;
+          console.log(citySelectOneValue);
+          console.log(graTimeValue);
+                render(graTimeValue, citySelectOneValue);
+                return;
+            }
+    });  
+});
+
+EventUtil.addHandler(formGraTime, "click", function (event) {
+    event = EventUtil.getEvent(event);
+    var target = EventUtil.getTarget(event);
+    console.log(target);
+    graArray.forEach(function(element){  
+        if (target === element) {
+          var graTimeValue = element.value;
+          var citySelectOneValue = cityOptions[citySelect.selectedIndex].value;
+                render(graTimeValue, citySelectOneValue);
+                return;
+            }
+    });  
+
+});
+
+  });
+}
+
+addEvent();
+function render(graTimeValue, citySelectOneValue) {
+      switch (graTimeValue) {
+                case 'day':
+                renderDay(citySelectOneValue);
+                break;
+                case 'week':
+                level = 2;
+                break;
+                case 'month':
+                level = 3;
+                break;
+               
+            }
+    
+}
+function renderDay(citySelectOneValue) {
+  var aaaa = Object.getOwnPropertyDescriptor(aqiSourceData, citySelectOneValue);
+    console.log(aaaa);
+    var bbbb = aaaa.value;
+    console.log(bbbb);
+    var chart = '';
+    for (var x in bbbb){
+      var aqi = bbbb[x];
+        chart += '<div title="'+x+', '+aqi+'" class="level'+getLevel(aqi)+' day" style="height: '+aqi+'px"></div>';
+    }
+    console.log(chart);
+    aqiChart.innerHTML= chart;
+}
+  
+
+  </script>
 </body>
 </html>

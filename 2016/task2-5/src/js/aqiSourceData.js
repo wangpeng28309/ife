@@ -22,24 +22,61 @@ function randomBuildData(seed) {
 var aqiSourceData = {
   "北京": randomBuildData(500),
   "上海": randomBuildData(300),
-  "广州": randomBuildData(200),
   "深圳": randomBuildData(100),
-  "成都": randomBuildData(300),
-  "西安": randomBuildData(500),
-  "福州": randomBuildData(100),
-  "厦门": randomBuildData(100),
-  "沈阳": randomBuildData(500)
 };
 console.log(aqiSourceData);
-var aaaa = Object.getOwnPropertyDescriptor(aqiSourceData, "上海");
-var bbbb = aaaa.value;
-console.log(aaaa);
-console.log(bbbb);
-var chart = '';
-var aqiChart = document.getElementById("aqi-chart-wrap");
-for (var x in bbbb)
-{
-chart += '<div title="'+x+', '+bbbb[x]+'" style="height: '+bbbb[x]+'px";"></div>';
+
+------------
+function citySelectChange(graTimeValue) {
+    EventUtil.addHandler(citySelect, "change", function (event) {
+    event = EventUtil.getEvent(event);
+    var citySelectOne = citySelect.options[citySelect.selectedIndex];
+    console.log(citySelectOne);
+    var citySelectOneValue = citySelectOne.value;
+        console.log(graTimeValue);
+graTimeChange(citySelectOneValue);
+    render(citySelectOneValue, graTimeValue);
+});
+}  
+
+function graTimeChange(citySelectOneValue) {
+    EventUtil.addHandler(formGraTime, "click", function (event) {
+    event = EventUtil.getEvent(event);
+    var target = EventUtil.getTarget(event);
+    console.log(target);
+    var graTimeValue = target.value;
+
+                citySelectChange(graTimeValue);
+
+
+});
 }
-console.log(chart);
-aqiChart.innerHTML= chart;
+graTimeChange();
+function render(citySelectOneValue, graTimeValue) {
+      switch (graTimeValue) {
+                case 'day':
+                renderDay(citySelectOneValue);
+                break;
+                case 'week':
+                level = 2;
+                break;
+                case 'month':
+                level = 3;
+                break;
+               
+            }
+    
+}
+function renderDay(citySelectOneValue) {
+  var aaaa = Object.getOwnPropertyDescriptor(aqiSourceData, citySelectOneValue);
+    console.log(aaaa);
+    var bbbb = aaaa.value;
+    console.log(bbbb);
+    var chart = '';
+    for (var x in bbbb){
+      var aqi = bbbb[x];
+        chart += '<div title="'+x+', '+aqi+'" class="level'+getLevel(aqi)+' day" style="height: '+aqi+'px"></div>';
+    }
+    console.log(chart);
+    aqiChart.innerHTML= chart;
+}
