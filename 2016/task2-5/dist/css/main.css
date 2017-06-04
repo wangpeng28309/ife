@@ -1,0 +1,30 @@
+#aqi-chart-wrap div{
+  display: inline-block;
+}
+  #aqi-chart-wrap div.level1 {
+background: #AEEEEE;
+  }
+  #aqi-chart-wrap div.level2 {
+background: #87CEFF;
+  }
+  #aqi-chart-wrap div.level3 {
+background: #76EE00;
+  }
+  #aqi-chart-wrap div.level4 {
+background: #CDCD00;
+  }
+  #aqi-chart-wrap div.level5 {
+background: #EE7600;
+  }
+  #aqi-chart-wrap div.level6 {
+background: #CD0000;
+  }
+.day {
+  	width: 13px;
+  }
+.month {
+    width: 60px;
+  }
+.week {
+	width: 30px;
+}

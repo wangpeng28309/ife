@@ -1,4 +1,4 @@
-window.EventUtil = {
+var EventUtil = {
 
     addHandler: function(element, type, handler){
         if (element.addEventListener){
