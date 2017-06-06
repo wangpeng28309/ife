@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+	<title>baidu_ife_task2-6</title>
+	<link rel="stylesheet" type="text/css" href="./css/main.css">
+</head>
+<body>
+    <form>
+    	<input type="text" class="title-bar" id="text-in" name="form-nummber" placeholder="请输入">
+    	<button type="button" class="title-bar" id="left-in">左侧入</button>
+    	<button type="button" class="title-bar" id="right-in">右侧入</button>
+    	<button type="button" class="title-bar" id="left-out">左侧出</button>
+    	<button type="button" class="title-bar" id="right-out">右侧出</button>
+    </form>
+    <script type="text/javascript">
+        var EventUtil = {
+
+            addHandler: function(element, type, handler){
+                if (element.addEventListener){
+                    element.addEventListener(type, handler, false);
+                } else if (element.attachEvent){
+                    element.attachEvent("on" + type, handler);
+                } else {
+                    element["on" + type] = handler;
+                }
+            },
+            getTarget: function(event){
+                return event.target || event.srcElement;
+            },
+                getCharCode: function(event){
+                if (typeof event.charCode == "number"){
+                    return event.charCode;
+                } else {
+                    return event.keyCode;
+                }
+            },
+            getEvent: function(event){
+                return event ? event : window.event;
+            },
+            preventDefault: function(event){
+                if (event.preventDefault){
+                    event.preventDefault();
+                } else {
+                    event.returnValue = false;
+                }
+            }
+        };
+    	function init() {
+    		EventUtil.addHandler(window, "load", function() {
+    			var textIn = document.getElementById('text-in');
+    			var leftIn = document.getElementById('left-in');
+    			var rightIn = document.getElementById('right-in');
+    			var leftOut = document.getElementById('left-out');
+    			var rightOut = document.getElementById('right-out');
+    			var table = document.createElement('table');
+
+    			EventUtil.addHandler(leftIn, "click", function() {
+    				event = EventUtil.getEvent(event);
+                    var target = EventUtil.getTarget(event);
+                    console.log(target);
+                    var textInValue = textIn.value;
+                    console.log(textInValue);
+                    
+                    var tr = table.insertRow(0);
+                    tr.innerHTML = '<td>'+textInValue+'</td>';
+                    document.body.appendChild(table);
+    			});
+    			EventUtil.addHandler(rightIn, "click", function() {
+    				event = EventUtil.getEvent(event);
+                    var target = EventUtil.getTarget(event);
+                    console.log(target);
+                    var textInValue = textIn.value;
+                    console.log(textInValue);
+                    var arrayRow = table.rows;
+                    console.log(arrayRow);
+                    var tr = table.insertRow(arrayRow.lenght);
+                    tr.innerHTML = '<td>'+textInValue+'</td>';
+                    document.body.appendChild(table);
+    			});
+    			EventUtil.addHandler(leftOut, "click", function() {
+    				alert(table.childNodes[0].firstChild.firstChild.firstChild.nodeValue);
+    				table.deleteRow(0);
+    			});
+    			EventUtil.addHandler(rightOut, "click", function() {
+
+                    var arrayRow = table.childNodes[0].childNodes;
+                    console.log(arrayRow);
+                    console.log(table.childNodes[0].childNodes[arrayRow.length - 1 ].firstChild.firstChild.nodeValue);
+    				table.deleteRow(arrayRow.length-1);
+    			});
+    			EventUtil.addHandler(table, "click", function(event) {
+    				event = EventUtil.getEvent(event);
+                    var target = EventUtil.getTarget(event);
+                    var rowIndex = target.rowIndex;
+                    table.deleteRow(rowIndex);
+    			});
+    		});
+    	}
+    	init();
+    </script>
+</body>
+</html>
