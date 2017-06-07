@@ -1,0 +1,17 @@
+table {
+	height: 600px;
+	border: solid 1px;
+	position: relative;
+}
+tr {
+	margin-bottom: 0px;
+		display: inline-block;
+		overflow: auto;
+		border: solid 1px;
+}
+td {
+	background-color: #FF8247;
+	width: 2px;
+	border: solid 1px;
+
+}
