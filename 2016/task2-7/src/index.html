@@ -55,16 +55,7 @@
     			var rightOut = document.getElementById('right-out');
     			var table = document.createElement('table');
 
-    			EventUtil.addHandler(textIn, "blur", function(event) {
-    				event = EventUtil.getEvent(event);
-                    var target = EventUtil.getTarget(event);
-                    console.log(target);
-                    var textInValue = textIn.value;
-                    if (textInValue >= 1000 || textInValue <= 200) {
-                    	alert('请正确输入');
-                    }
-                    else {
-                    	EventUtil.addHandler(leftIn, "click", function() {
+    			EventUtil.addHandler(leftIn, "click", function() {
     				event = EventUtil.getEvent(event);
                     var target = EventUtil.getTarget(event);
                     console.log(target);
@@ -72,15 +63,19 @@
                     console.log(textInValue);
                     var arrayRow = table.rows;
                     console.log(arrayRow.length);
-
-                    if (arrayRow.length <= 60) {
+                    if (textInValue >= 1000 || textInValue <= 200) {
+                    	alert('请正确输入');
+                    } else {
+                    	if (arrayRow.length <= 60) {
                         var tr = table.insertRow(0);
-                        tr.innerHTML = '<td style="height: '+textInValue+'px" value="'+textInValue+'"></td>';
+                        tr.innerHTML = '<td class="tr" align="left" style="height: '+textInValue+'px" value="'+textInValue+'"></td>';
                         document.body.appendChild(table);
+                        }
+                        else {
+                    	    alert("添加超过限制");
+                        }
                     }
-                    else {
-                    	alert("添加超过限制");
-                    }
+                    
     			});
 
                 EventUtil.addHandler(rightIn, "click", function() {
@@ -91,18 +86,19 @@
                     console.log(textInValue);
                     var arrayRow = table.rows;
                     console.log(arrayRow);
+                    if (textInValue >= 1000 || textInValue <= 200) {
+                    	alert('请正确输入');
+                    } else {
                     if (arrayRow.length <= 60) {
                         var tr = table.insertRow(arrayRow.length);
-                        tr.innerHTML = '<td style="height: '+textInValue+'px" value="'+textInValue+'"></td>';
+                        tr.innerHTML = '<td class="tr" align="left" style="height: '+textInValue+'px" value="'+textInValue+'"></td>';
                         document.body.appendChild(table);
                     }
                     else {
                     	alert("添加超过限制");
                     }
+                }
     			});
-                    }
-    			});
-    			
     			EventUtil.addHandler(leftOut, "click", function() {
     				alert(table.childNodes[0].firstChild.firstChild.getAttribute('value'));
     				table.deleteRow(0);
@@ -117,8 +113,12 @@
     			EventUtil.addHandler(table, "click", function(event) {
     				event = EventUtil.getEvent(event);
                     var target = EventUtil.getTarget(event);
-                    var rowIndex = target.rowIndex;
+                    if (target.getAttribute('class') === "tr") {
+                    	console.log(target);
+                    var rowIndex = target.parentNode.rowIndex;
+                    console.log(rowIndex);
                     table.deleteRow(rowIndex);
+                    }
     			});
     		});
     	}
