@@ -12,6 +12,7 @@
     	<button type="button" class="title-bar" id="right-in">右侧入</button>
     	<button type="button" class="title-bar" id="left-out">左侧出</button>
     	<button type="button" class="title-bar" id="right-out">右侧出</button>
+    	<button type="button" class="title-bar" id="sort">冒泡排序</button>
     </form>
     <script type="text/javascript">
         var EventUtil = {
@@ -54,6 +55,7 @@
     			var leftOut = document.getElementById('left-out');
     			var rightOut = document.getElementById('right-out');
     			var table = document.createElement('table');
+    			var sort = document.getElementById('sort');
 
     			EventUtil.addHandler(leftIn, "click", function() {
     				event = EventUtil.getEvent(event);
@@ -119,6 +121,32 @@
                     console.log(rowIndex);
                     table.deleteRow(rowIndex);
                     }
+    			});
+    			EventUtil.addHandler(sort, "click", function(event) {
+    				var arrayRow = table.childNodes[0].childNodes;
+    				console.log(arrayRow);
+                    
+                        for (var i = arrayRow.length-1; i > 0; i--) {
+                            for(var j = 0; j < i; j++){
+                                if (arrayRow[j].firstChild.getAttribute('value') > arrayRow[j+1].firstChild.getAttribute('value')) {
+                                   
+
+                                    var textInValue1 = arrayRow[j+1].firstChild.getAttribute('value');
+                                    var textInValue2 = arrayRow[j].firstChild.getAttribute('value');
+                                    table.deleteRow(j);
+                                    var tr = table.insertRow(j);
+                                    tr.innerHTML = '<td class="tr" align="left" style="height: '+textInValue1+'px" value="'+textInValue1+'"></td>';
+                                    document.body.appendChild(table);
+                                    
+                                    table.deleteRow(j+1);
+                                    var tr = table.insertRow(j+1);
+                                    tr.innerHTML = '<td class="tr" align="left" style="height: '+textInValue2+'px" value="'+textInValue2+'"></td>';
+                                    document.body.appendChild(table);
+                                
+                                }
+                            }
+                        }
+
     			});
     		});
     	}
