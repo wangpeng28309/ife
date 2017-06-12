@@ -1,0 +1,16 @@
+table {
+}
+
+tr {
+		display: inline-block;
+}
+td {
+	background-color: #FF8247;
+	width: 30px;
+	height: 10px;
+}
+td.search {
+	background-color: red;
+	width: 30px;
+	height: 10px;
+}
