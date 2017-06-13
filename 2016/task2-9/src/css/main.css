@@ -1,0 +1,21 @@
+form {
+	margin: 10px;
+}
+textarea, input, button {
+	display: block;
+	margin: 5px;
+}
+
+tr {
+	display: inline-block;
+}
+td {
+	background-color: #FF8247;
+	width: 30px;
+	height: 10px;
+}
+td.search {
+	background-color: red;
+	width: 30px;
+	height: 10px;
+}

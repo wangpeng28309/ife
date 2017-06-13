@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+	<title>baidu_ife_task2-9</title>
+	<link rel="stylesheet" type="text/css" href="./css/main.css">
+</head>
+<body>
+    <form>
+        <input type="text" name="hobby" placeholder="请输入" class="title-bar" id="hobby-in">
+        <textarea type="text" class="title-bar" id="text-in" name="form-nummber" placeholder="请输入"></textarea>
+    	<button type="button" class="title-bar" id="left-in">左侧入</button>
+    </form>
+    <script type="text/javascript">
+        var EventUtil = {
+
+            addHandler: function(element, type, handler){
+                if (element.addEventListener){
+                    element.addEventListener(type, handler, false);
+                } else if (element.attachEvent){
+                    element.attachEvent("on" + type, handler);
+                } else {
+                    element["on" + type] = handler;
+                }
+            },
+            getTarget: function(event){
+                return event.target || event.srcElement;
+            },
+                getCharCode: function(event){
+                if (typeof event.charCode == "number"){
+                    return event.charCode;
+                } else {
+                    return event.keyCode;
+                }
+            },
+            getEvent: function(event){
+                return event ? event : window.event;
+            },
+            preventDefault: function(event){
+                if (event.preventDefault){
+                    event.preventDefault();
+                } else {
+                    event.returnValue = false;
+                }
+            }
+        };
+    	function init() {
+    		EventUtil.addHandler(window, "load", function() {
+                var hobbyIn = document.getElementById('hobby-in');
+    			var textIn = document.getElementById('text-in');
+    			var leftIn = document.getElementById('left-in');
+    			var table = document.createElement('table');
+                var tableFirst = document.createElement('table');
+
+    			EventUtil.addHandler(leftIn, "click", function() {
+    				event = EventUtil.getEvent(event);
+                    var target = EventUtil.getTarget(event);
+                    console.log(target);
+                    var textInValue = textIn.value;
+                    console.log(textInValue);
+                    var splitText = textInValue.split(/[\r,. ，\n\t]+/);
+                    var arrayRow = table.rows;
+                    console.log(arrayRow.length);
+                        for (var i = 0; i < splitText.length; i++) {
+                            if (arrayRow.length < 10) {
+                                console.log(arrayRow.length);
+                                var tr = table.insertRow(arrayRow.length);
+                                tr.innerHTML = '<td class="tr" align="left" style="height: '+splitText[i]+'px" value="'+splitText[i]+'">'+splitText[i]+'</td>';
+                                document.body.appendChild(table);
+                            } 
+                            else if (arrayRow.length = 10) {
+                                table.deleteRow(0);
+                                var tr = table.insertRow(9);
+                                tr.innerHTML = '<td class="tr" align="left" style="height: '+splitText[i]+'px" value="'+splitText[i]+'">'+splitText[i]+'</td>';
+                                document.body.appendChild(table);
+                            }
+                        }
+    			});
+                EventUtil.addHandler(hobbyIn, "keypress", function(event) {
+                    event = EventUtil.getEvent(event);
+                    console.log(event.keyCode);
+                    if (event.keyCode === 32 || event.keyCode === 44 || event.keyCode === 13) {
+                        var tableFirstLength = tableFirst.length;
+                        var tr = tableFirst.insertRow(tableFirstLength);
+                        var hobbyInValue = hobbyIn.value;
+                        tr.innerHTML = '<td class="tableFirst">'+hobbyInValue+'</td>';
+                        document.body.appendChild(tableFirst);
+                    }
+                });
+    			EventUtil.addHandler(tableFirst, "mouseover", function(event) {
+    				event = EventUtil.getEvent(event);
+                    var target = EventUtil.getTarget(event);
+                    if (target.getAttribute('class') === "tableFirst") {
+                    	console.log(target);
+                    var rowIndex = target.parentNode.rowIndex;
+                    console.log(rowIndex);
+                    tableFirst.deleteRow(rowIndex);
+                    }
+    			});
+
+    		});
+    	}
+    	init();
+    </script>
+</body>
+</html>
