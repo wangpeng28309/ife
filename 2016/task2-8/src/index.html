@@ -65,15 +65,19 @@
                     console.log(target);
                     var textInValue = textIn.value;
                     console.log(textInValue);
+                    var splitText = textInValue.split(/[\r,. ，\n\t]+/);
                     var arrayRow = table.rows;
                     console.log(arrayRow.length);
                     if (textInValue >= 1000 || textInValue <= 200) {
                     	alert('请正确输入');
                     } else {
                     	if (arrayRow.length <= 60) {
-                        var tr = table.insertRow(0);
-                        tr.innerHTML = '<td class="tr" align="left" style="height: '+textInValue+'px" value="'+textInValue+'"></td>';
-                        document.body.appendChild(table);
+                            for (var i = 0; i < splitText.length; i++) {
+                            
+                                var tr = table.insertRow(0+i);
+                                tr.innerHTML = '<td class="tr" align="left" style="height: '+splitText[i]+'px" value="'+splitText[i]+'">'+splitText[i]+'</td>';
+                                document.body.appendChild(table);
+                            }
                         }
                         else {
                     	    alert("添加超过限制");
@@ -88,20 +92,24 @@
                     console.log(target);
                     var textInValue = textIn.value;
                     console.log(textInValue);
+                    var splitText = textInValue.split(/[\r,. ，\n\t]+/);
                     var arrayRow = table.rows;
                     console.log(arrayRow);
                     if (textInValue >= 1000 || textInValue <= 200) {
                     	alert('请正确输入');
                     } else {
-                    if (arrayRow.length <= 60) {
-                        var tr = table.insertRow(arrayRow.length);
-                        tr.innerHTML = '<td class="tr" align="left" style="height: '+textInValue+'px" value="'+textInValue+'"></td>';
-                        document.body.appendChild(table);
+                        if (arrayRow.length <= 60) {
+                            for (var i = 0; i < splitText.length; i++) {
+                            
+                                var tr = table.insertRow(arrayRow.length);
+                                tr.innerHTML = '<td class="tr" align="left" style="height: '+splitText[i]+'px" value="'+splitText[i]+'">'+splitText[i]+'</td>';
+                                document.body.appendChild(table);
+                            }
+                        }
+                        else {
+                            alert("添加超过限制");
+                        }
                     }
-                    else {
-                    	alert("添加超过限制");
-                    }
-                }
     			});
     			EventUtil.addHandler(leftOut, "click", function() {
     				alert(table.childNodes[0].firstChild.firstChild.getAttribute('value'));
