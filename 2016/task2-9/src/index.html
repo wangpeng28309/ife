@@ -79,12 +79,23 @@
                 EventUtil.addHandler(hobbyIn, "keypress", function(event) {
                     event = EventUtil.getEvent(event);
                     console.log(event.keyCode);
+                    var arrayRowFirst = tableFirst.rows;
                     if (event.keyCode === 32 || event.keyCode === 44 || event.keyCode === 13) {
-                        var tableFirstLength = tableFirst.length;
-                        var tr = tableFirst.insertRow(tableFirstLength);
-                        var hobbyInValue = hobbyIn.value;
-                        tr.innerHTML = '<td class="tableFirst">'+hobbyInValue+'</td>';
-                        document.body.appendChild(tableFirst);
+                        if (arrayRowFirst.length < 10) {
+                            var tableFirstLength = tableFirst.length;
+                            var tr = tableFirst.insertRow(tableFirstLength);
+                            var hobbyInValue = hobbyIn.value;
+                            tr.innerHTML = '<td class="tableFirst">'+hobbyInValue+'</td>';
+                            document.body.appendChild(tableFirst); 
+                        } 
+                        else if (arrayRowFirst.length = 10) {
+                            tableFirst.deleteRow(0);
+                            var tr = tableFirst.insertRow(9);
+                            var hobbyInValue = hobbyIn.value;
+                            tr.innerHTML = '<td class="tableFirst">'+hobbyInValue+'</td>';
+                            document.body.appendChild(tableFirst);
+                        }
+                        
                     }
                 });
     			EventUtil.addHandler(tableFirst, "mouseover", function(event) {
@@ -92,11 +103,29 @@
                     var target = EventUtil.getTarget(event);
                     if (target.getAttribute('class') === "tableFirst") {
                     	console.log(target);
-                    var rowIndex = target.parentNode.rowIndex;
-                    console.log(rowIndex);
-                    tableFirst.deleteRow(rowIndex);
+                    target.firstChild.nodeValue = '删除' + target.firstChild.nodeValue;
                     }
     			});
+                EventUtil.addHandler(tableFirst, "mouseout", function(event) {
+                    event = EventUtil.getEvent(event);
+                    var target = EventUtil.getTarget(event);
+                    if (target.getAttribute('class') === "tableFirst") {
+                        var currentText = target.firstChild.nodeValue;
+                        console.log(currentText);
+                        var originalText = currentText.replace("删除", "")
+                        console.log(originalText);
+                        target.firstChild.nodeValue = originalText;
+                        console.log(target);
+                    }
+                });
+                EventUtil.addHandler(tableFirst, "click", function(event) {
+                    event = EventUtil.getEvent(event);
+                    var target = EventUtil.getTarget(event);
+                    if (target.getAttribute("class") ==='tableFirst') {
+                        var rowIndex = target.parentNode.rowIndex;
+                        tableFirst.deleteRow(rowIndex);
+                    }
+                });
 
     		});
     	}
