@@ -56,7 +56,7 @@
     				event = EventUtil.getEvent(event);
                     var target = EventUtil.getTarget(event);
                     console.log(target);
-                    var textInValue = textIn.value;
+                    var textInValue = textIn.value.trim();
                     console.log(textInValue);
                     var splitText = textInValue.split(/[\r,. ，\n\t]+/);
                     var arrayRow = table.rows;
@@ -80,18 +80,19 @@
                     event = EventUtil.getEvent(event);
                     console.log(event.keyCode);
                     var arrayRowFirst = tableFirst.rows;
+                    var hobbyInValue = hobbyIn.value.trim();
+                    
                     if (event.keyCode === 32 || event.keyCode === 44 || event.keyCode === 13) {
                         if (arrayRowFirst.length < 10) {
-                            var tableFirstLength = tableFirst.length;
-                            var tr = tableFirst.insertRow(tableFirstLength);
-                            var hobbyInValue = hobbyIn.value;
+                            var arrayRowFirstLength = arrayRowFirst.length;
+                            console.log(arrayRowFirstLength);
+                            var tr = tableFirst.insertRow(arrayRowFirstLength);
                             tr.innerHTML = '<td class="tableFirst">'+hobbyInValue+'</td>';
                             document.body.appendChild(tableFirst); 
                         } 
                         else if (arrayRowFirst.length = 10) {
                             tableFirst.deleteRow(0);
                             var tr = tableFirst.insertRow(9);
-                            var hobbyInValue = hobbyIn.value;
                             tr.innerHTML = '<td class="tableFirst">'+hobbyInValue+'</td>';
                             document.body.appendChild(tableFirst);
                         }
